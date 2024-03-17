@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  matter-workspace:
+    image: omhq/matter-workspace:0.0.1
+    working_dir: /workspace
+    volumes:
+      - ./chats:/workspace/chats
+      - ./files:/workspace/files
+      - ./configs:/workspace/configs
+      - ./udfs:/workspace/udfs
+
+      # optionally mount the source code
+      - ./src:/workspace/src
+      - ./cli.py:/workspace/cli.py
+    command: ["cli.py", "-f", "configs/config.yml"]
+    environment:
+      ROOT_PATH: /workspace
+      DEBUG: "true"

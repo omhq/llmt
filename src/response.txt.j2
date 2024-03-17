@@ -1,0 +1,13 @@
+assistant: {{ assistant.name }}
+
+{% if function_calls is defined and function_calls|length > 0 %}
+function calls: {{function_calls|length}}
+
+{% for function_call in function_calls %}
+- {{ function_call.name }}({{ function_call.arguments }}) -> {{ function_call.content }}
+{% endfor %}
+{% endif %}
+
+{{ info }}
+
+{{ response }}

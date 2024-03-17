@@ -2,14 +2,19 @@
 
 LLM chat helper with function calling and chat history retention.
 
+This project runs on prem. Use it in data pipelines, as part of CI/CD, or for your own chats. Write custom functions for the LLM to call. The on-prem system calls functions on behalf of the LLM. Currently using OpenAI.
+
 ### Getting started
 
 Docker and make needs to be installed.
 
+- Create custom functions in the udf/ directory and import them in cli.py. A sample function file is already being imported.
 - Update or create a new configuration file in configs/.
-- `make run` CTRL + C to quit.
+- Make sure the configuration file describes your custom functions in `assistants.tools`.
+- `make run`
 - Use files/input.md to send messages.
 - Use files/output.md to receive messages.
+- CTRL + C to quit out of the container and clean up orphans.
 
 ### Configuration file
 
