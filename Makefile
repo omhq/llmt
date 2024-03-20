@@ -1,5 +1,5 @@
 ACCOUNT=omhq
-IMAGE=matter-workspace
+IMAGE=thinker
 IMAGE_TAG=0.0.1
 
 CURRENT_DIR=$(shell pwd)

@@ -1,6 +1,6 @@
-# Matter
+# Thinker
 
-LLM chat helper with function calling and chat history retention.
+LLM chat helper with function calling.
 
 This project runs on prem. Use it in data pipelines, as part of CI/CD, or for your own chats. Write custom functions for the LLM to call. The on-prem system calls functions on behalf of the LLM. Currently using OpenAI.
 

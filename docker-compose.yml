@@ -1,8 +1,8 @@
 version: "3"
 
 services:
-  matter-workspace:
-    image: omhq/matter-workspace:0.0.1
+  thinker:
+    image: omhq/thinker:0.0.1
     working_dir: /workspace
     volumes:
       - ./chats:/workspace/chats
