@@ -4,7 +4,7 @@ from openai import OpenAI
 from openai.types.chat import ChatCompletion, ChatCompletionMessage
 
 
-from src.utils import logger
+from llmt.utils import logger
 
 
 class OpenAIAssistant:
@@ -42,11 +42,9 @@ class OpenAIAssistant:
         Returns:
             ChatCompletion: The chat completion.
         """
-        completion = self.client.chat.completions.create(
+        return self.client.chat.completions.create(
             messages=messages, model=self.model, tools=self.tools
         )
-
-        return completion
 
     def generate_response(
         self, messages: List[ChatCompletionMessage]

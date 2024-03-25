@@ -2,7 +2,7 @@ import logging
 import yaml
 import pprint
 
-from src.consts import DEBUG
+from llmt.consts import DEBUG
 
 
 pp = pprint.PrettyPrinter(indent=4)

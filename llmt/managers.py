@@ -6,7 +6,7 @@ import jinja2
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
-from src.consts import ROOT_PATH, RESPONSE_TEMPLATE
+from llmt.consts import RESPONSE_TEMPLATE
 
 
 class EventHandler(FileSystemEventHandler):
@@ -41,9 +41,9 @@ class EventHandler(FileSystemEventHandler):
 
 
 class FileHandler:
-    def __init__(self, input_file: str, output_file: str):
-        self.input_file = os.path.join(ROOT_PATH, "files", input_file)
-        self.output_file = os.path.join(ROOT_PATH, "files", output_file)
+    def __init__(self, root_path, input_file: str, output_file: str):
+        self.input_file = os.path.join(root_path, "files", input_file)
+        self.output_file = os.path.join(root_path, "files", output_file)
 
         self.init()
 
@@ -54,7 +54,7 @@ class FileHandler:
         self.env = jinja2.Environment(
             trim_blocks=True,
             lstrip_blocks=True,
-            loader=jinja2.FileSystemLoader(searchpath=os.path.join(ROOT_PATH, "src"))
+            loader=jinja2.FileSystemLoader(searchpath=os.path.join(root_path, "src")),
         )
 
     def init(self):
@@ -72,9 +72,7 @@ class FileHandler:
             f.write(template.render(**data))
 
     def events_generator(self):
-        for event in self.event_handler.events_generator():
-            yield event
-
+        yield from self.event_handler.events_generator()
         self.observer.join()
 
     def __del__(self):

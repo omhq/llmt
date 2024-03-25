@@ -1,14 +1,6 @@
 import argparse
 
-from src.managers import ChatManager, FileHandler
-from src.utils import load_config
-from src.consts import ROOT_PATH
-from src.assistants import OpenAIAssistant
-from src.prompts import (
-    prompt_create_chat,
-    prompt_init,
-    converse,
-)
+from llmt import LLMT
 
 # import all custom functions here
 import udfs.udfs as functions
@@ -41,52 +33,20 @@ def parse_args() -> argparse.Namespace:
 if __name__ == "__main__":
     args: argparse.Namespace = parse_args()
     config_file = args.config_file
-    configs = load_config(config_file)
-    chat_manager = ChatManager(ROOT_PATH)
-    file_handler = None
-
     create_chat = args.create_chat
-    chats = [x for x in chat_manager.list_chats()]
 
-    if create_chat:
-        chat_name = prompt_create_chat()
-        chat_manager.init_chat(chat_name)
-        exit(0)
-
-    if len(chats) == 0:
-        chat_name = prompt_create_chat()
-        chat_manager.init_chat(chat_name)
-        chats = [x for x in chat_manager.list_chats()]
-
-    init_answers = prompt_init(configs["assistants"], chats)
-
-    selected_assistant = next(
-        (x for x in configs["assistants"] if x["name"] == init_answers["assistant"]),
-        None,
+    llmt = LLMT(
+        config_file=config_file,
+        root_path=".",
     )
 
-    openai_key = selected_assistant["api_key"]
-    tools = selected_assistant.get("tools", [])
+    if create_chat or len(llmt.get_chats()) == 0:
+        chat_name = llmt.prompt_create_chat()
+        llmt.init_chat(chat_name)
 
-    assistant = OpenAIAssistant(
-        openai_key,
-        selected_assistant["model"],
-        selected_assistant["assistant_name"],
-        selected_assistant["assistant_description"],
-        tools,
-    )
+    init_answers = llmt.init_prompt()
+    llmt.init_assistant(init_answers["assistant"])
+    llmt.init_chat(init_answers["chat_name"])
 
-    selected_chat = init_answers["chat_name"]
-
-    chat_manager.init_chat(selected_chat)
-
-    if chat_manager.list_messages() == 0:
-        chat_manager.save_to_chat(
-            {"role": "system", "content": selected_assistant["assistant_description"]}
-        )
-
-    if configs["input_file"] and configs["output_file"]:
-        file_handler = FileHandler(configs["input_file"], configs["output_file"])
-
-    for response in converse(chat_manager, file_handler, assistant, functions):
+    for response in llmt.run_live(functions=functions):
         print(f"\n{response}\n")

@@ -45,8 +45,26 @@ def add_hexadecimal_values(arguments):
     decimal2 = int(value2, 16)
     return hex(decimal1 + decimal2)[2:]
 
-# load data into snowflake using cloudquery
 
-# describe snowflake table by database + schema
+@timer
+def describe_table(arguments):
+    args = json.loads(arguments)
+    database = args["database"]
+    schema = args["schema"]
+    table = args["table"]
+    return f"DESCRIBE TABLE {database}.{schema}.{table}"
 
-# execute SELECT query
+
+@timer
+def load_data(arguments):
+    args = json.loads(arguments)
+    source = args["source"]
+    target = args["target"]
+    return f"INSERT INTO {target} SELECT * FROM {source}"
+
+
+@timer
+def execute_select_query(arguments):
+    args = json.loads(arguments)
+    query = args["query"]
+    return f"SELECT * FROM {query}" 

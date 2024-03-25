@@ -16,7 +16,8 @@ ADD ./requirements.txt .
 RUN python -m pip install -r requirements.txt
 RUN rm ./requirements.txt
 
-ADD ./src /workspace/src
+ADD ./llmt /workspace/llmt
+ADD ./udfs /workspace/udfs
 ADD ./cli.py /workspace/cli.py
 
 ENTRYPOINT ["python"]

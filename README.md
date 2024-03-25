@@ -1,17 +1,17 @@
-# Thinker
+# LLMT
 
-LLM chat helper with function calling.
+Convenient LLM chat wrapper for data pipelines, CI/CD, or personal workspaces.
 
-This project runs on prem. Use it in data pipelines, as part of CI/CD, or for your own chats. Write custom functions for the LLM to call. The on-prem system calls functions on behalf of the LLM. Currently using OpenAI.
+Supports local function calling, chat history retention, and can run wherever. Chat using a terminal, input/output files, or directly through LLMT API.
 
 ### Getting started
 
-Docker and make needs to be installed.
+Install Docker and make command.
 
-- Create custom functions in the udf/ directory and import them in cli.py. A sample function file is already being imported.
+- Optionally create custom functions in the udf/ directory and import them in cli.py.
 - Update or create a new configuration file in configs/.
 - Make sure the configuration file describes your custom functions in `assistants.tools`.
-- `make run`
+- Run `make run`.
 - Use files/input.md to send messages.
 - Use files/output.md to receive messages.
 - CTRL + C to quit out of the container and clean up orphans.
