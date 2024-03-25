@@ -6,7 +6,7 @@ import jinja2
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
-from llmt.consts import RESPONSE_TEMPLATE
+from .consts import RESPONSE_TEMPLATE
 
 
 class EventHandler(FileSystemEventHandler):
@@ -54,7 +54,7 @@ class FileHandler:
         self.env = jinja2.Environment(
             trim_blocks=True,
             lstrip_blocks=True,
-            loader=jinja2.FileSystemLoader(searchpath=os.path.join(root_path, "src")),
+            loader=jinja2.FileSystemLoader(searchpath=os.path.join(root_path)),
         )
 
     def init(self):

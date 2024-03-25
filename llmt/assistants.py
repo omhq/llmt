@@ -4,7 +4,7 @@ from openai import OpenAI
 from openai.types.chat import ChatCompletion, ChatCompletionMessage
 
 
-from llmt.utils import logger
+from .utils import logger
 
 
 class OpenAIAssistant:

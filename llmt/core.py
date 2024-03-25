@@ -1,9 +1,9 @@
 import os
 
-from llmt.managers import ChatManager, FileHandler
-from llmt.utils import load_config
-from llmt.assistants import OpenAIAssistant
-from llmt.prompts import prompt_create_chat, prompt_init, chat, chat_once
+from .managers import ChatManager, FileHandler
+from .utils import load_config
+from .assistants import OpenAIAssistant
+from .prompts import prompt_create_chat, prompt_init, chat, chat_once
 
 
 class LLMT:

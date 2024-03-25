@@ -1,0 +1,28 @@
+[project]
+name = "llmt"
+version = "0.0.1"
+authors = [
+  { name="Artem Golub", email="artem @ outermeasure.com"}
+]
+description = "Convenient LLM chat wrapper for data pipelines, CI/CD, or personal workspaces."
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dynamic = ["dependencies"]
+
+[project.urls]
+"Homepage" = "https://github.com/omhq/llmt"
+"Bug Tracker" = "https://github.com/omhq/llmt/issues"
+
+[tool.setuptools]
+packages = ["llmt"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[tool.setuptools.package-data]
+"llmt" = ["*.j2"]

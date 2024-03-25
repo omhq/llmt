@@ -9,8 +9,8 @@ from openai.types.chat import (
     ChatCompletionMessageToolCall,
 )
 
-from llmt.assistants import OpenAIAssistant
-from llmt.consts import EXIT_CODES
+from .assistants import OpenAIAssistant
+from .consts import EXIT_CODES
 
 
 class Style:
