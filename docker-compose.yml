@@ -1,8 +1,8 @@
 version: "3"
 
 services:
-  thinker:
-    image: omhq/thinker:0.0.1
+  llmt-workspace:
+    image: omhq/llmt-workspace:0.0.1
     working_dir: /workspace
     volumes:
       - ./chats:/workspace/chats
@@ -11,7 +11,7 @@ services:
       - ./udfs:/workspace/udfs
 
       # optionally mount the source code
-      - ./src:/workspace/src
+      - ./llmt:/workspace/llmt
       - ./cli.py:/workspace/cli.py
     command: ["cli.py", "-f", "configs/config.yml"]
     environment:
