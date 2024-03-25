@@ -4,12 +4,10 @@ output_file: output.md
 assistants:
 
   - name: data-engineer
-    type: openai
     assistant_name: data-engineer
     assistant_description: >
       You are a data engineer, you are an expert with python, sqlalchemy, pandas, and snowflake.
       Answer questions briefly, in a sentence or less.
-      
     api_key:
     model: gpt-3.5-turbo
     tools:
@@ -50,7 +48,6 @@ assistants:
             - value2
 
   - name: datadog-expert
-    type: openai
     assistant_name: DataDog wizard
     assistant_description: >
       You are a DataDog wizard. Answer questions briefly, in a sentence or less.
