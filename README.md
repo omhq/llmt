@@ -2,16 +2,73 @@
 
 Convenient LLM chat wrapper for data pipelines, CI/CD, or personal workspaces.
 
-Supports local function calling, chat history retention, and can run wherever. Chat using a terminal, input/output files, or directly through LLMT API.
+Supports local function calling, chat history retention, and can run anywhere. Chat using a terminal, input/output files, or directly through LLMT API.
 
-### Getting started
+### Usage
 
-Install Docker and make command.
+Use the package in directly in your python code (`pip install llmt`), or as a local workspace running a container to interact with ChatGPT.
 
-- Optionally create custom functions in the udf/ directory and import them in cli.py.
-- Update or create a new configuration file in configs/.
-- Make sure the configuration file describes your custom functions in `assistants.tools`.
-- Run `make run`.
+### Module import
+
+```python
+from llmt import LLMT
+from myfunctions import function
+
+tools = [
+    {
+        "function": {
+            "required": ["value1", "value2"],
+            "name": "add_decimal_values",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "value2": {
+                        "type": "integer",
+                        "description": "The second decimal value to add. For example, 10",
+                    },
+                    "value1": {
+                        "type": "integer",
+                        "description": "The first decimal value to add. For example, 5",
+                    },
+                },
+            },
+            "description": "Add two decimal values and return the result.\n",
+        },
+        "type": "function",
+    }
+]
+
+llmt = LLMT()
+llmt.init_assistant(
+    "dataengineer",
+    api_key="...",
+    model="gpt-3.5-turbo",
+    assistant_description=(
+        " ".join(
+            [
+                "You are a data engineer, and an expert with python,",
+                "sqlalchemy, pandas, and snowflake. Answer questions",
+                "briefly in a sentence or less.",
+            ]
+        )
+    ),
+    tools=tools,
+)
+llmt.init_chat("single_chat")
+response = llmt.run(
+    "What's the result of 22 plus 5 in decimal added to the hexadecimal number A?",
+    functions=functions,
+)
+```
+
+### Local workspace
+
+Install Docker and make command. Make is not required since you can use docker compose.
+
+- Clone this repo.
+- If using custom functions, create your functions in the udf/ directory and import them in cli.py.
+- Update the default configuration file, or create a new one in configs/.
+- Run `make run`. Default config will let you use input and output files.
 - Use files/input.md to send messages.
 - Use files/output.md to receive messages.
 - CTRL + C to quit out of the container and clean up orphans.
