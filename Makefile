@@ -1,6 +1,6 @@
 ACCOUNT=omhq
 IMAGE=llmt-workspace
-IMAGE_TAG=0.0.1
+IMAGE_TAG=0.0.2
 
 CURRENT_DIR=$(shell pwd)
 
